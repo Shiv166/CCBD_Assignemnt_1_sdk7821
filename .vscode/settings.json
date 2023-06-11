@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/bb11bbce-7e4a-4883-9c9c-2df6b31cabba/resourceGroups/CCBD-sdk7821/providers/Microsoft.Web/sites/CCBD-sdk7821",
+    "appService.deploySubpath": "."
+}
