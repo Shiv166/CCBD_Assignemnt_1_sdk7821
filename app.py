@@ -41,9 +41,9 @@ def sdkdata():
     return render_template('sdkdata.html')
 
 
-@app.route("/searchbyname", methods=['GET', 'POST'])
-def searchbyname():
-    return render_template('searchbyname.html')
+@app.route("/sdksearchbyname", methods=['GET', 'POST'])
+def sdksearchbyname():
+    return render_template('sdksearchbyname.html')
 
 
 @app.route("/sdksearch", methods=['POST'])
@@ -60,9 +60,9 @@ def sdksearch():
                 break
 
     if temp_path:
-        return render_template('searchbyname.html', image_path=temp_path, message="Match found.")
+        return render_template('sdksearchbyname.html', image_path=temp_path, message="Match found.")
     else:
-        return render_template('searchbyname.html', error="No match found.")
+        return render_template('sdksearchbyname.html', error="No match found.")
 
 @app.route("/sdksal", methods=['GET', 'POST'])
 def sdksal():
@@ -102,42 +102,6 @@ def editdetails():
             return render_template('sdk_display.html', name=found_name)
         else:
             return render_template('sdk_display.html', error="No matching records found.")
-
-
-# @app.route("/updatedetails", methods=['GET', 'POST'])
-# def updatedetails():
-#     if request.method == 'POST':
-#         name = request.form['name']
-#         state = request.form['state']
-#         salary = request.form['salary']
-#         grade = request.form['grade']
-#         room = request.form['room']
-#         picture = request.form['picture']
-#         keyword = request.form['keyword']
-#         cnt = 0
-
-#         temp = [name, state, salary, grade, room, picture, keyword]
-#         line = list()
-
-#         with open('static/people.csv', 'r') as f1:
-#             csv_reader = csv.reader(f1)
-#             for r in csv_reader:
-#                 if name == r[0]:
-#                     line.append(temp)
-#                 else:
-#                     line.append(r)
-#                 cnt += 1
-
-#             csv_write = open('static/people.csv', 'w')
-#             for i in line:
-#                 for j in i:
-#                     csv_write.write(j + ',')
-#                 csv_write.write('\n')
-
-#             if cnt != 0:
-#                 return render_template('display.html', update="One Record Updated Successfully.")
-#             else:
-#                 return render_template('display.html', error="No Record Found!")
 
 @app.route("/sdk_update", methods=['POST'])
 def sdk_update():
