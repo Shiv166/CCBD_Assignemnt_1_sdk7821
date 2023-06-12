@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=['GET', 'POST'])
-def index():
+def home():
     return render_template('sdkhome.html')
 
 @app.route("/sdkupload", methods=['GET', 'POST'])
@@ -22,8 +22,8 @@ def upload():
             return render_template('sdkupload.html', message="CSV file upload successful.")
     return render_template('sdkupload.html')
 
-@app.route("/data", methods=['GET', 'POST'])
-def data():
+@app.route("/sdkdata", methods=['GET', 'POST'])
+def sdkdata():
     if request.method == 'POST':
         uploaded_file = request.files.get('csvfile')
         if uploaded_file and uploaded_file.filename != '':
@@ -31,14 +31,14 @@ def data():
             file_path = os.path.join('static', filename)
             uploaded_file.save(file_path)
             
-            data = []
+            sdkdata = []
             with open(file_path) as csv_file:
                 csv_reader = csv.DictReader(csv_file)
                 for row in csv_reader:
-                    data.append(row)
+                    sdkdata.append(row)
             
-            return render_template('data.html', data=data)
-    return render_template('data.html')
+            return render_template('sdkdata.html', sdkdata=sdkdata)
+    return render_template('sdkdata.html')
 
 
 @app.route("/searchbyname", methods=['GET', 'POST'])
@@ -84,9 +84,9 @@ def sdksal():
     else:
         return render_template('sdksal.html', error="No pictures found")
 
-@app.route("/edit", methods=['GET', 'POST'])
-def edit():
-    return render_template('edit.html')
+@app.route("/sdkedit", methods=['GET', 'POST'])
+def sdkedit():
+    return render_template('sdkedit.html')
 
 @app.route("/editdetails", methods=['GET', 'POST'])
 def editdetails():
