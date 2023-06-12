@@ -19,7 +19,7 @@ def upload():
             filename = secure_filename(uploaded_file.filename)
             file_path = os.path.join('static', filename)
             uploaded_file.save(file_path)
-            return render_template('sdkupload.html', message="CSV file upload successful.")
+            return render_template('sdkupload.html', message="Your CSV file uploaded successful.")
     return render_template('sdkupload.html')
 
 @app.route("/sdkdata", methods=['GET', 'POST'])
@@ -113,7 +113,7 @@ def sdk_update():
         room = request.form['room']
         picture = request.files['picture']
         keyword = request.form['keyword']
-        count = 0
+        plus = 0
 
         new_data = [name, state, salary, grade, room, picture.filename, keyword]
         updated_records = []
@@ -125,14 +125,14 @@ def sdk_update():
                     updated_records.append(new_data)
                 else:
                     updated_records.append(row)
-                count += 1
+                plus += 1
 
         with open('static/people.csv', 'w', newline='') as file:
             csv_writer = csv.writer(file)
             csv_writer.writerows(updated_records)
 
-        if count != 0:
-            return render_template('sdk_display.html', update="One record updated successfully.")
+        if plus != 0:
+            return render_template('sdk_display.html', update="The given Record updated successfully.")
         else:
             return render_template('sdk_display.html', error="No record found!")
 
@@ -161,7 +161,7 @@ def sdkdelete():
                 csv_writer.writerow(record)
 
         if record_found:
-            return render_template('sdkdelete.html', message="Record successfully removed.")
+            return render_template('sdkdelete.html', message="The given record successfully removed.")
         else:
             return render_template('sdkdelete.html', error="Record not found.")
 
@@ -176,7 +176,7 @@ def sdk_newpic():
         uploaded_image = request.files['img']
         filename = secure_filename(uploaded_image.filename)
         uploaded_image.save(os.path.join('static', filename))
-        return render_template('sdk_show.html', msg="Image successfully uploaded.")
+        return render_template('sdk_show.html', msg="The image is successfully uploaded.")
 
 if __name__ == "__main__":
     app.run(debug=True,port = 8080)
